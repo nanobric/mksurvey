@@ -75,6 +75,54 @@
                         <p>Templates</p>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.template-masters.index') }}" class="nav-link {{ request()->routeIs('admin.template-masters.*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-palette"></i>
+                        <p>Template Masters</p>
+                    </a>
+                </li>
+
+                <li class="nav-header">CRM</li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.clients.index') }}" class="nav-link {{ request()->routeIs('admin.clients.*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-building"></i>
+                        <p>Clientes</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.plans.index') }}" class="nav-link {{ request()->routeIs('admin.plans.*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-tags"></i>
+                        <p>Planes</p>
+                    </a>
+                </li>
+
+                <li class="nav-header">MONITOREO</li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.campaigns.index') }}" class="nav-link {{ request()->routeIs('admin.campaigns.*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-paper-plane"></i>
+                        <p>Campañas</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.api-logs.index') }}" class="nav-link {{ request()->routeIs('admin.api-logs.*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-terminal"></i>
+                        <p>Monitor API</p>
+                    </a>
+                </li>
+
+                <li class="nav-header">ADMINISTRACIÓN</li>
+
+                <li class="nav-item">
+                    <a href="{{ route('admin.users.index') }}" class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-users-cog"></i>
+                        <p>Usuarios Admin</p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

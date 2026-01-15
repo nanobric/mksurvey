@@ -2,102 +2,101 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Template;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class TemplateController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $templates = Template::latest()->paginate(10);
+        $templates = Template::latest()->paginate(12);
         return view('templates.index', compact('templates'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('templates.create');
+        return view('templates.builder');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'code' => 'required|string|max:50|unique:templates',
+            'description' => 'nullable|string',
             'channel' => 'required|in:sms,whatsapp,email',
             'content' => 'required|string',
-            'variables' => 'nullable|string', // Comma separated in UI
+            'components' => 'nullable|array',
+            'media_url' => 'nullable|url',
+            'media_type' => 'nullable|in:image,video,document',
         ]);
 
-        // Process variables from string "name, url" to array ["name", "url"]
-        if (!empty($validated['variables'])) {
-            $validated['variables'] = array_map('trim', explode(',', $validated['variables']));
-        } else {
-            $validated['variables'] = [];
-        }
+        // Generar código único
+        $validated['code'] = Str::slug($validated['name']) . '-' . Str::random(6);
+        
+        // Detectar variables
+        preg_match_all('/\{\{(\w+)\}\}/', $validated['content'], $matches);
+        $validated['variables'] = array_unique($matches[1] ?? []);
+        
+        $validated['status'] = 'active';
 
-        Template::create($validated);
+        $template = Template::create($validated);
 
-        return redirect()->route('templates.index')
+        return redirect()->route('templates.show', $template)
             ->with('success', 'Template creado correctamente');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(Template $template)
     {
-        //
+        return view('templates.show', compact('template'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Template $template)
     {
-        return view('templates.edit', compact('template'));
+        return view('templates.builder', compact('template'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Template $template)
     {
-         $validated = $request->validate([
+        $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'code' => 'required|string|max:50|unique:templates,code,' . $template->id,
+            'description' => 'nullable|string',
             'channel' => 'required|in:sms,whatsapp,email',
             'content' => 'required|string',
-            'variables' => 'nullable|string',
+            'components' => 'nullable|array',
+            'media_url' => 'nullable|url',
+            'media_type' => 'nullable|in:image,video,document',
         ]);
 
-        if (!empty($validated['variables'])) {
-            $validated['variables'] = array_map('trim', explode(',', $validated['variables']));
-        } else {
-            $validated['variables'] = [];
-        }
+        // Detectar variables
+        preg_match_all('/\{\{(\w+)\}\}/', $validated['content'], $matches);
+        $validated['variables'] = array_unique($matches[1] ?? []);
 
         $template->update($validated);
 
-        return redirect()->route('templates.index')
+        return redirect()->route('templates.show', $template)
             ->with('success', 'Template actualizado correctamente');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Template $template)
     {
         $template->delete();
+
         return redirect()->route('templates.index')
-            ->with('success', 'Template eliminado correctamente');
+            ->with('success', 'Template eliminado');
+    }
+
+    /**
+     * Preview del template con variables.
+     */
+    public function preview(Request $request, Template $template)
+    {
+        $data = $request->input('variables', []);
+        $rendered = $template->render($data);
+
+        return response()->json([
+            'content' => $rendered,
+            'variables' => $template->variables,
+        ]);
     }
 }

@@ -8,6 +8,7 @@
     "require": {
         "php": "^8.2",
         "almasaeed2010/adminlte": "~3.2",
+        "halaxa/json-machine": "^1.2",
         "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",

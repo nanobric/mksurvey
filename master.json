@@ -1,0 +1,52 @@
+{
+    "request_header": {
+        "api_token": "TU_API_TOKEN_UNICO",
+        "request_id": "REQ-UUID-778899",
+        "is_test": false,
+        "version": "1.0"
+    },
+    "campaign": {
+        "name": "Evaluación Anual de Clima Laboral",
+        "external_id": "RH-2026-001",
+        "template_id": "TPL_PSICO_01",
+        "tags": [
+            "rrhh",
+            "psicometria",
+            "masivo"
+        ]
+    },
+    "routing": {
+        "channel": "whatsapp",
+        "route_tier": "official",
+        "priority": "normal",
+        "validity_seconds": 3600
+    },
+    "scheduling": {
+        "send_at": "2026-01-15 09:00:00",
+        "timezone": "America/Mexico_City",
+        "on_timeout_policy": "resume"
+    },
+    "content_vars": {
+        "global": {
+            "empresa": "Trece20",
+            "soporte_link": "https://soporte.tu-app.com"
+        },
+        "track_links": true
+    },
+    "recipients": [
+        {
+            "to": "+526561234567",
+            "tracking_id": "anon_hash_001",
+            "params": {
+                "link": "https://tuapp.com/test/a1",
+                "folio": "F-889"
+            }
+        }
+    ],
+    "security_billing": {
+        "authorization_pin": "1234"
+    },
+    "reporting": {
+        "callback_url": "https://tu-sistema.com/webhooks/status"
+    }
+}
