@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'MKSURVEY Admin') }}</title>
+    <title>@yield('title', 'Dashboard') | NETAZO</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -11,6 +11,26 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
+    <!-- NETAZO Custom -->
+    <style>
+        :root {
+            --netazo-primary: #2B6B9A;
+            --netazo-dark: #1a3a4a;
+            --netazo-light: #4a9fd4;
+        }
+        /* Expandido: mostrar logo-h, ocultar icon */
+        .brand-icon { display: none; }
+        .brand-logo { display: inline; }
+        /* Colapsado: mostrar icon, ocultar logo-h */
+        .sidebar-collapse .brand-icon { display: inline !important; margin: 0 auto; }
+        .sidebar-collapse .brand-logo { display: none !important; }
+        .sidebar-collapse .brand-link { text-align: center; padding: 10px 0 !important; }
+        /* Accent colors */
+        .bg-gradient-primary { background: linear-gradient(135deg, var(--netazo-primary) 0%, var(--netazo-dark) 100%) !important; }
+        .btn-primary { background-color: var(--netazo-primary) !important; border-color: var(--netazo-primary) !important; }
+        .btn-primary:hover { background-color: var(--netazo-dark) !important; }
+        .small-box.bg-gradient-primary { background: linear-gradient(135deg, var(--netazo-primary) 0%, #1e5276 100%) !important; }
+    </style>
     @stack('styles')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -55,7 +75,7 @@
     <!-- /.content-wrapper -->
     
     <footer class="main-footer">
-        <strong>Copyright &copy; {{ date('Y') }} <a href="#">MKSURVEY</a>.</strong>
+        <strong>Copyright &copy; {{ date('Y') }} <a href="#">NETAZO</a>.</strong>
         All rights reserved.
         <div class="float-right d-none d-sm-inline-block">
             <b>Version</b> 1.0.0

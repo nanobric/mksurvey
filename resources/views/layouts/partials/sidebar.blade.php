@@ -1,9 +1,9 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="{{ url('/') }}" class="brand-link">
-        <img src="{{ asset('adminlte/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">MKSURVEY Admin</span>
+    <a href="{{ url('/dashboard') }}" class="brand-link">
+        <img src="{{ asset('img/icon.png') }}" alt="NETAZO" class="brand-image" style="max-height: 33px; margin-left: 5px; margin-top: 3px;">
+        <img src="{{ asset('img/logotext-w.png') }}" alt="NETAZO" class="brand-text" style="max-height: 20px; margin-left: 3px;">
     </a>
 
     <!-- Sidebar -->
